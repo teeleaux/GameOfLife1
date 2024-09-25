@@ -32,15 +32,26 @@ class Celle:
         self._ant_levende_naboer = ny_nabo
         return self._ant_levende_naboer
 
+    # def oppdater_status(self):
+    #     #bruk if sjekk for reglene som står i oppgaven
+    #     if self._status == "levende":
+    #         if self._ant_levende_naboer < 2:
+    #             self._status = "doed"
+    #         if self._ant_levende_naboer == 2 or 3:
+    #             self._status = "levende"
+    #         if self._ant_levende_naboer > 3:
+    #             self._status = "doed"
+    #     elif self._status == "doed":
+    #         if self._ant_levende_naboer == 3:
+    #             self._status = "levende"
+
     def oppdater_status(self):
-        #bruk if sjekk for reglene som står i oppgaven
+    # Update the cell's status based on the Game of Life rules
         if self._status == "levende":
-            if self._ant_levende_naboer < 2:
-                self._status = "doed"
-            if self._ant_levende_naboer == 2 or 3:
-                self._status = "levende"
-            if self._ant_levende_naboer > 3:
+            # Living cells with fewer than 2 or more than 3 neighbors die
+            if self._ant_levende_naboer < 2 or self._ant_levende_naboer > 3:
                 self._status = "doed"
         elif self._status == "doed":
+            # Dead cells with exactly 3 neighbors become alive
             if self._ant_levende_naboer == 3:
                 self._status = "levende"

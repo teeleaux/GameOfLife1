@@ -70,55 +70,25 @@ class Rutenett:
     def _sett_naboer(self, rad, kol):
         #lager en tom liste for naboer
         #sette naboer og sjekk opp mot celle så legg_til_nabo
-
         celle = self.hent_celle(rad,kol)
 
-        nabo1 = self.hent_celle(rad-1, kol-1)
-        nabo2 = self.hent_celle(rad-1, kol)
-        nabo3 = self.hent_celle(rad-1, kol+1)
-        nabo4 = self.hent_celle(rad, kol-1)
-        nabo5 = self.hent_celle(rad, kol+1)
-        nabo6 = self.hent_celle(rad+1, kol-1)
-        nabo7 = self.hent_celle(rad+1,kol)
-        nabo8 = self.hent_celle(rad+1, kol+1)
-        naboer = [nabo1, nabo2, nabo3, nabo4, nabo5, nabo6, nabo7, nabo8]
+        # empty list to collect neighbors
+        naboer = []
+        # Need to handle edge cases here. Cells on the edge of the board have fewer neighbors!
+
+        nabo_koordinator = [(rad-1, kol-1), (rad-1, kol), (rad-1, kol+1), 
+                            (rad, kol-1),                 (rad, kol+1), 
+                            (rad+1, kol-1), (rad+1,kol), (rad+1, kol+1)]
+
+        for nabo_rad, nabo_kol in nabo_koordinator:
+            if 0 <= nabo_rad < self._ant_rader and 0 <= nabo_kol < self._ant_kolonner:
+                nabo = self.hent_celle(nabo_rad, nabo_kol)
+                if nabo is not None:
+                    naboer.append(nabo)
 
         for nabo in naboer:
             if nabo != None:
                 celle.legg_til_nabo(nabo)
-                
-        # Bruker for-løkke over isteden
-        # nabo1 = self.hent_celle(rad-1, kol-1)
-        # if nabo1 is not None:
-        #     celle.legg_til_nabo(nabo1)
-        #
-        # nabo2 = self.hent_celle(rad-1, kol)
-        # if nabo2 != None:
-        #     celle.legg_til_nabo(nabo2)
-        #
-        # nabo3 = self.hent_celle(rad-1, kol+1)
-        # if nabo3 != None:
-        #     celle.legg_til_nabo(nabo3)
-        #
-        # nabo4 = self.hent_celle(rad, kol-1)
-        # if nabo4 != None:
-        #     celle.legg_til_nabo(nabo4)
-        #
-        # nabo5 = self.hent_celle(rad, kol+1)
-        # if nabo5 != None:
-        #     celle.legg_til_nabo(nabo5)
-        #
-        # nabo6 = self.hent_celle(rad+1, kol-1)
-        # if nabo6 != None:
-        #     celle.legg_til_nabo(nabo6)
-        #
-        # nabo7 = self.hent_celle(rad+1,kol)
-        # if nabo7 != None:
-        #     celle.legg_til_nabo(nabo7)
-        #
-        # nabo8 = self.hent_celle(rad+1, kol+1)
-        # if nabo8 != None:
-        #     celle.legg_til_nabo(nabo8)
 
     def koble_celler(self):
         for rad in range(self._ant_rader):
